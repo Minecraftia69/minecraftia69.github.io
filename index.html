@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Gradient Background</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            overflow: hidden;
+        }
+        
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        
+        .container {
+            max-width: 900px;
+            padding: 40px;
+            background-color: rgba(0, 0, 0, 0.4);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            z-index: -1;
+        }
+        
+        .main-quote {
+            font-size: 3.2rem;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+            letter-spacing: 0.5px;
+            position: relative;
+            padding-bottom: 20px;
+        }
+        
+        .main-quote::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 3px;
+            background: linear-gradient(to right, transparent, #ffffff, transparent);
+        }
+        
+        .author {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 50px;
+            text-align: right;
+            font-style: italic;
+            opacity: 0.9;
+        }
+        
+        .test-button {
+            background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.1));
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 600;
+            padding: 18px 45px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            outline: none;
+        }
+        
+        .test-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, rgba(255,255,255,0.3), rgba(255,255,255,0.2));
+            letter-spacing: 1.5px;
+        }
+        
+        .test-button:active {
+            transform: translateY(0);
+        }
+        
+        .test-button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.7s;
+        }
+        
+        .test-button:hover::after {
+            left: 100%;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .message {
+            font-size: 1.8rem;
+            font-weight: 500;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+        }
+        
+        .message.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            animation: float 20s infinite linear;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .main-quote {
+                font-size: 2.2rem;
+            }
+            
+            .author {
+                font-size: 1.2rem;
+                margin-bottom: 40px;
+            }
+            
+            .container {
+                padding: 30px 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .main-quote {
+                font-size: 1.8rem;
+            }
+            
+            .author {
+                font-size: 1rem;
+            }
+            
+            .test-button {
+                font-size: 1.1rem;
+                padding: 15px 35px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="main-quote">"Everything that kills me makes me feel alive."</h1>
+        <p class="author">——Edward's profile</p>
+        
+        <button class="test-button" id="testButton">
+            <i class="fas fa-flask"></i> TESTING ONLY
+        </button>
+        
+        <div class="message" id="message">
+            <i class="fas fa-check-circle"></i> Button removed as requested
+        </div>
+    </div>
+    
+    <div class="particles" id="particles"></div>
+    
+    <script>
+        // 创建背景粒子效果
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // 随机大小
+                const size = Math.random() * 20 + 5;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // 随机位置
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // 随机动画延迟和持续时间
+                particle.style.animationDelay = `${Math.random() * 20}s`;
+                particle.style.animationDuration = `${Math.random() * 20 + 10}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // 按钮点击事件
+        document.getElementById('testButton').addEventListener('click', function() {
+            // 隐藏按钮
+            this.classList.add('hidden');
+            
+            // 显示消息
+            const message = document.getElementById('message');
+            message.classList.add('show');
+            
+            // 3秒后隐藏消息
+            setTimeout(() => {
+                message.classList.remove('show');
+            }, 3000);
+        });
+        
+        // 页面加载完成后创建粒子
+        window.addEventListener('DOMContentLoaded', createParticles);
+        
+        // 添加键盘支持（按T键模拟点击按钮）
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 't' || event.key === 'T') {
+                document.getElementById('testButton').click();
+            }
+        });
+    </script>
+</body>
+</html>
